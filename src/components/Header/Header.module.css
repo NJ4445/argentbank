@@ -1,0 +1,33 @@
+/* Header.module.css */
+
+.mainNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+    background-color: #fff; /* Vous pouvez ajuster en fonction du design */
+  }
+  
+  .mainNavLogo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .mainNavLogoImage {
+    max-width: 100%;
+    width: 200px;
+  }
+  
+  .mainNavItem {
+    text-decoration: none;
+    margin-right: 0.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+  }
+  
+  .mainNavItem:hover {
+    text-decoration: underline;
+  }
+  
+  /* Ajoutez des styles supplémentaires si nécessaire */
+  
