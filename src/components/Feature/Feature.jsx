@@ -7,7 +7,7 @@ const Feature = () => {
     <section className={styles.features}>
       <div className={styles.featureItem}>
         <img
-          src="./img/icon-chat.png"
+          src="./img/icon-chat.webp"
           alt="Chat Icon"
           className={styles.featureIcon}
         />
@@ -19,7 +19,7 @@ const Feature = () => {
       </div>
       <div className={styles.featureItem}>
         <img
-          src="./img/icon-money.png"
+          src="./img/icon-money.webp"
           alt="Money Icon"
           className={styles.featureIcon}
         />
@@ -30,7 +30,7 @@ const Feature = () => {
       </div>
       <div className={styles.featureItem}>
         <img
-          src="./img/icon-security.png"
+          src="./img/icon-security.webp"
           alt="Security Icon"
           className={styles.featureIcon}
         />

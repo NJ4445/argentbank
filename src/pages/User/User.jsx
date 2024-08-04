@@ -1,13 +1,9 @@
-// User.jsx
 import React from 'react';
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
 import styles from '../User/User.module.css'; 
 
 const User = () => {
   return (
     <div>
-      <Header />
       <main className={styles.main}>
         <div className={styles.header}>
           <h1>Welcome back<br />Tony Jarvis!</h1>
@@ -45,7 +41,6 @@ const User = () => {
           </div>
         </section>
       </main>
-      <Footer />
     </div>
   );
 };

@@ -1,12 +1,9 @@
-// SignIn.jsx
 import React from 'react';
-import Header from '../../components/Header/Header';
 import styles from '../SignIn/SignIn.module.css'; 
 
 const SignIn = () => {
   return (
     <div>
-      <Header />
       <main className={styles.main}>
         <section className={styles.signInContent}>
           <i className={`fa fa-user-circle ${styles.signInIcon}`}></i>
@@ -31,9 +28,6 @@ const SignIn = () => {
           </form>
         </section>
       </main>
-      <footer className={styles.footer}>
-        <p className={styles.footerText}>Copyright 2020 Argent Bank</p>
-      </footer>
     </div>
   );
 };
