@@ -20,7 +20,7 @@ const SignInForm = () => {
           <input type="checkbox" id="remember-me" />
           <label htmlFor="remember-me">Remember me</label>
         </div>
-        <a href="./user.html" className={styles.signInButton}>Sign In</a>
+        <a href="./user" className={styles.signInButton}>Sign In</a>
         {/* Utilisez le bouton si vous avez un gestionnaire de soumission */}
         {/* <button className={styles.signInButton}>Sign In</button> */}
       </form>

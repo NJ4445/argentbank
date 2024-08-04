@@ -1,22 +1,23 @@
 import React from 'react';
-import styles from '../Header/Header.module.css';
+import { Link } from 'react-router-dom';
+import styles from './Header.module.css'; 
 import logo from '../../assets/img/argentBankLogo.webp'; 
 
 const Header = () => {
   return (
     <nav className={styles.mainNav}>
-      <a className={styles.mainNavLogo} href="./index.html">
+      <Link className={styles.mainNavLogo} to="/">
         <img
           className={styles.mainNavLogoImage}
-          src={logo} 
+          src={logo}
           alt="Argent Bank Logo"
         />
-      </a>
+      </Link>
       <div>
-        <a className={styles.mainNavItem} href="./sign-in.html">
+        <Link className={styles.mainNavItem} to="/sign-in">
           <i className="fa fa-user-circle"></i>
           Sign In
-        </a> 
+        </Link>
       </div>
     </nav>
   );
