@@ -34,14 +34,14 @@
     font-size: 0.9rem;
   }
   
-  .features {
+  .feature {
     display: flex;
     flex-direction: column;
     margin: 2rem 0;
   }
   
   @media (min-width: 920px) {
-    .features {
+    .feature {
       flex-direction: row;
     }
   }

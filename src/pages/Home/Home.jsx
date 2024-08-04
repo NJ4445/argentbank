@@ -1,18 +1,17 @@
 import React from 'react';
 import Hero from '../../components/Hero/Hero';
 import Feature from '../../components/Feature/Feature';
-
-// Icônes
 import IconChat from "../../assets/img/icon-chat.webp";
 import IconMoney from "../../assets/img/icon-money.webp";
 import IconSecurity from "../../assets/img/icon-security.webp";
+import styles from './Home.module.css'; 
 
 function Home() {
   return (
     <>
       <main>
         <Hero />
-        <section className="features">
+        <section className={styles.feature}>
           <Feature 
             iconSrc={IconChat}
             title="Vous êtes notre priorité n°1"

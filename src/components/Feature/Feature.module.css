@@ -1,12 +1,12 @@
 /* Feature.module.css */
 
-.features {
+.feature {
     display: flex;
     flex-direction: column;
   }
   
   @media (min-width: 920px) {
-    .features {
+    .feature {
       flex-direction: row;
     }
   }
