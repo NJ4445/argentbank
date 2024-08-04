@@ -7,7 +7,6 @@ import User from './pages/User/User';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 
-
 const App = () => {
   return (
   <>
@@ -21,8 +20,6 @@ const App = () => {
       </Router>
        <Footer />
   </>
- 
-    
   );
 };
 

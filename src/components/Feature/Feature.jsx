@@ -1,13 +1,17 @@
-// Feature.jsx
 import React from 'react';
 import styles from '../Feature/Feature.module.css'; 
+
+// Import des icônes
+import IconChat from '../../assets/img/icon-chat.webp';
+import IconMoney from '../../assets/img/icon-money.webp';
+import IconSecurity from '../../assets/img/icon-security.webp';
 
 const Feature = () => {
   return (
     <section className={styles.features}>
       <div className={styles.featureItem}>
         <img
-          src="./img/icon-chat.webp"
+          src={IconChat}  
           alt="Chat Icon"
           className={styles.featureIcon}
         />
@@ -19,7 +23,7 @@ const Feature = () => {
       </div>
       <div className={styles.featureItem}>
         <img
-          src="./img/icon-money.webp"
+          src={IconMoney}  
           alt="Money Icon"
           className={styles.featureIcon}
         />
@@ -30,7 +34,7 @@ const Feature = () => {
       </div>
       <div className={styles.featureItem}>
         <img
-          src="./img/icon-security.webp"
+          src={IconSecurity}  
           alt="Security Icon"
           className={styles.featureIcon}
         />
