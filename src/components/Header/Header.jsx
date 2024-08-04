@@ -1,6 +1,6 @@
-// Header.jsx
 import React from 'react';
-import styles from '../Header/Header.module.css'; 
+import styles from '../Header/Header.module.css';
+import logo from '../../assets/img/argentBankLogo.webp'; 
 
 const Header = () => {
   return (
@@ -8,10 +8,9 @@ const Header = () => {
       <a className={styles.mainNavLogo} href="./index.html">
         <img
           className={styles.mainNavLogoImage}
-          src="./assets/img/argentBankLogo.webp"
+          src={logo} 
           alt="Argent Bank Logo"
         />
-        <h1 className="sr-only">Argent Bank</h1>
       </a>
       <div>
         <a className={styles.mainNavItem} href="./sign-in.html">
