@@ -1,11 +1,13 @@
 // SignInForm.jsx
 import React from 'react';
 import styles from '../SignInForm/SignInForm.module.css'; 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 const SignInForm = () => {
   return (
     <main className={`${styles.signInContent} bg-dark`}>
-      <i className={`fa fa-user-circle ${styles.signInIcon}`}></i>
+      <FontAwesomeIcon icon={faUserCircle} className={styles.signInIcon} />
       <h1>Sign In</h1>
       <form>
         <div className={styles.inputWrapper}>
@@ -21,8 +23,6 @@ const SignInForm = () => {
           <label htmlFor="remember-me">Remember me</label>
         </div>
         <a href="./user" className={styles.signInButton}>Sign In</a>
-        {/* Utilisez le bouton si vous avez un gestionnaire de soumission */}
-        {/* <button className={styles.signInButton}>Sign In</button> */}
       </form>
     </main>
   );

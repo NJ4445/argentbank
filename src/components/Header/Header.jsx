@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Header.module.css'; 
 import logo from '../../assets/img/argentBankLogo.webp'; 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {
   return (
@@ -15,7 +17,7 @@ const Header = () => {
       </Link>
       <div>
         <Link className={styles.mainNavItem} to="/sign-in">
-          <i className="fa fa-user-circle"></i>
+          <FontAwesomeIcon icon={faUserCircle} className={styles.mainNavItem} />
           Sign In
         </Link>
       </div>
