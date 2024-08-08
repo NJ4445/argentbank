@@ -1,11 +1,9 @@
+/* User.module.css */
+
 .main {
   display: block;
-  background-color: #12002b; 
-  flex-basis: 0%;
-  flex-grow: 1;
-  flex-shrink: 1;
+  background-color: #12002b;
   text-align: center;
-  unicode-bidi: isolate;
   padding-bottom: 5rem;
   padding-top: 0.1rem;
 }
@@ -39,7 +37,6 @@
   text-align: left;
   margin-bottom: 32px;
   margin-top: 0;
-  unicode-bidi: isolate;
 }
 
 .accountAmount {
