@@ -35,7 +35,7 @@
 
 
   @media (min-width: 920px) {
-    .feature {
+    .featureItem{
       flex-direction: row;
     }
   }

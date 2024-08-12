@@ -1,5 +1,4 @@
 // Home.jsx
-
 import React from 'react';
 import Hero from '../../components/Hero/Hero';
 import Feature from '../../components/Feature/Feature';
@@ -11,7 +10,7 @@ import styles from './Home.module.css';
 function Home() {
   return (
     <>
-      <main>
+      <main className={styles.mainContent}>
         <Hero />
         <section className={styles.feature}>
           <Feature 
