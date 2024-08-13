@@ -1,5 +1,6 @@
-// callApi.jsx
+// src/api/callApi.jsx
 import axios from 'axios';
+
 const API_URL = 'http://localhost:3001/api/v1';
 
 // Instance Axios
@@ -61,5 +62,3 @@ export const updateUserName = async (token, newUserName) => {
     throw error;
   }
 };
-
-

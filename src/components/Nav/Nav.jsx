@@ -1,7 +1,8 @@
+// Nav.jsx
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectUserEmail, logout } from '../../redux/Features/authSlice';
+import { selectUserEmail, selectUserName, logout } from '../../redux/Features/authSlice';
 import styles from './Nav.module.css';
 import logo from '../../assets/img/argentBankLogo.webp';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,6 +10,7 @@ import { faUserCircle, faSignOut } from '@fortawesome/free-solid-svg-icons';
 
 const Nav = () => {
   const userEmail = useSelector(selectUserEmail);
+  const userName = useSelector(selectUserName);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -31,7 +33,7 @@ const Nav = () => {
         <div>
           <Link className={styles.mainNavItem} to="/user">
             <FontAwesomeIcon icon={faUserCircle} className={styles.mainNavItemIcon} />
-            {userEmail}
+            {userName || userEmail}
           </Link>
           <button type="button" className={styles.mainNavItem} onClick={handleLogout}>
             <FontAwesomeIcon icon={faSignOut} className={styles.mainNavItemIcon} />

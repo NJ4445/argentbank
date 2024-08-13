@@ -1,12 +1,14 @@
-// pages/User/User.jsx
+// User.jsx
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Account from '../../components/Account/Account';
+import UpdateUserNameForm from '../../components/UpdateUserNameForm/UpdateUserNameForm';
 import styles from './User.module.css';
-import { selectUserEmail } from '../../redux/Reducers/Reducers';
+import { selectUserEmail, selectUserName } from '../../redux/Features/authSlice';
 
 const User = () => {
   const userEmail = useSelector(selectUserEmail);
+  const userName = useSelector(selectUserName);
 
   const accounts = [
     { id: '1', title: "Argent Bank Checking (x8349)", amount: "$2,082.79", description: "Available Balance" },
@@ -18,7 +20,8 @@ const User = () => {
     <div>
       <main className={styles.main}>
         <div className={styles.header}>
-          <h1>Welcome back, {userEmail || 'User'}!</h1> {/* Affiche l'email */}
+          <h1>Welcome back, {userName || userEmail || 'User'}!</h1>
+          <UpdateUserNameForm />
         </div>
         <h2 className="sr-only">Account</h2>
         {accounts.length > 0 ? (

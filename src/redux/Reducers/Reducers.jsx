@@ -1,4 +1,4 @@
-// redux/Reducers/Reducers.jsx
+// Reducers.jsx
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
