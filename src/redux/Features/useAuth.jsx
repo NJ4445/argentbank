@@ -1,6 +1,5 @@
-// useAuth.jsx
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUserEmail, logout } from '../Features/authSlice';
+import { selectUserEmail, logout } from '../../redux/Features/authSlice';
 import { useNavigate } from 'react-router-dom';
 
 export const useAuth = () => {

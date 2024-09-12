@@ -1,14 +1,16 @@
-// User.jsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Account from '../../components/Account/Account';
 import UpdateUserNameForm from '../../components/UpdateUserNameForm/UpdateUserNameForm';
 import styles from './User.module.css';
-import { selectUserEmail, selectUserName } from '../../redux/Features/authSlice';
+import { selectUserName } from '../../redux/Features/authSlice';
 
 const User = () => {
-  const userEmail = useSelector(selectUserEmail);
-  const userName = useSelector(selectUserName);
+  const userFirstName = useSelector(selectUserName);
+
+  useEffect(() => {
+    console.log('UserFirstName from User component:', userFirstName); // Debugging line
+  }, [userFirstName]); // Déclenchement à chaque modification de userFirstName
 
   const accounts = [
     { id: '1', title: "Argent Bank Checking (x8349)", amount: "$2,082.79", description: "Available Balance" },
@@ -20,7 +22,7 @@ const User = () => {
     <div>
       <main className={styles.main}>
         <div className={styles.header}>
-          <h1>Welcome back, {userName || userEmail || 'User'}!</h1>
+          <h1>Welcome back, {userFirstName}!</h1> 
           <UpdateUserNameForm />
         </div>
         <h2 className="sr-only">Account</h2>

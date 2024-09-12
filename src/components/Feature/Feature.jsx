@@ -1,4 +1,3 @@
-// Feature.jsx
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Feature.module.css'; 
@@ -8,7 +7,7 @@ const Feature = ({ iconSrc, title, description }) => {
     <div className={styles.featureItem}>
       <img
         src={iconSrc}
-        alt={`${title} Icon`}
+        alt={`${title} icon`}
         className={styles.featureIcon}
       />
       <h3 className={styles.featureItemTitle}>{title}</h3>

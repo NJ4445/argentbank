@@ -1,9 +1,7 @@
-// SignInForm.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { login as loginApi } from '../../api/callApi';
-import { setToken, setUser } from '../../redux/Features/authSlice';
+import { login } from '../../redux/Features/authSlice'; // Assurez-vous que ce chemin est correct
 import styles from './SignInForm.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
@@ -19,14 +17,11 @@ const SignInForm = () => {
     event.preventDefault();
     setError(null);
     try {
-      const response = await loginApi({ email, password });
-      if (response.status === 200) {
-        const { token } = response.data.body;
-        dispatch(setToken(token));
-        dispatch(setUser({ email }));
+      const action = await dispatch(login({ email, password }));
+      if (login.fulfilled.match(action)) {
         navigate('/user');
       } else {
-        setError('Login failed: ' + response.statusText);
+        setError('Login failed: ' + action.payload);
       }
     } catch (error) {
       setError('Failed to login: ' + error.message);
@@ -36,8 +31,8 @@ const SignInForm = () => {
   return (
     <main className={`${styles.signInContent} bg-dark`}>
       <FontAwesomeIcon icon={faUserCircle} className={styles.signInIcon} />
-      <h1>Sign In</h1>
-      <form onSubmit={handleSignIn}>
+      <h1 id="sign-in-heading">Sign In</h1>
+      <form onSubmit={handleSignIn} aria-labelledby="sign-in-heading">
         <div className={styles.inputWrapper}>
           <label htmlFor="email">Email</label>
           <input
@@ -46,6 +41,8 @@ const SignInForm = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            aria-required="true"
+            aria-label="Email address"
           />
         </div>
         <div className={styles.inputWrapper}>
@@ -56,9 +53,11 @@ const SignInForm = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            aria-required="true"
+            aria-label="Password"
           />
         </div>
-        {error && <div className={styles.error}>{error}</div>}
+        {error && <div className={styles.error} role="alert" aria-live="assertive">{error}</div>}
         <div className={styles.inputRemember}>
           <input type="checkbox" id="remember-me" />
           <label htmlFor="remember-me">Remember me</label>

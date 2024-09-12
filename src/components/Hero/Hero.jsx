@@ -1,10 +1,9 @@
-// Hero.jsx
 import React from 'react';
 import styles from '../Hero/Hero.module.css';
 
 const Hero = () => {
   return (
-    <div className={styles.hero}>
+    <div className={styles.hero} aria-label="Argent Bank hero section">
       <section className={styles.heroContent}>
         <p className={styles.subtitle}>Pas de frais.</p>
         <p className={styles.subtitle}>Aucun dépôt minimum.</p>

@@ -1,50 +1,51 @@
-// UpdateUserNameForm.jsx
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUserName } from '../../api/callApi';
-import { setUser, selectUserEmail  } from '../../redux/Features/authSlice';
-
+import { updateUserName, fetchUserProfile, selectToken, selectAuthStatus, selectAuthError } from '../../redux/Features/authSlice';
 import styles from './UpdateUserNameForm.module.css';
 
 const UpdateUserNameForm = () => {
   const dispatch = useDispatch();
-  const userEmail = useSelector(selectUserEmail);
+  const token = useSelector(selectToken);
+  const status = useSelector(selectAuthStatus);
+  const error = useSelector(selectAuthError);
   const [newUserName, setNewUserName] = useState('');
-  const [error, setError] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const token = localStorage.getItem('authToken');
-      if (token) {
-        const response = await updateUserName(token, newUserName);
-        if (response.status === 200) {
-          dispatch(setUser({ email: userEmail, name: newUserName }));
-        } else {
-          setError('Failed to update username.');
-        }
-      } else {
-        setError('No authentication token found.');
-      }
-    } catch (error) {
-      setError('Failed to update username: ' + error.message);
+    if (!token) {
+      return;
     }
+
+    const result = await dispatch(updateUserName({ token, userName: newUserName }));
+  
+    if (updateUserName.fulfilled.match(result)) {
+      console.log('User name updated successfully');
+      // Rafraîchir les données utilisateur après la mise à jour du nom
+      dispatch(fetchUserProfile(token));
+    } else {
+      console.error('Failed to update user name:', result.payload);
+    }
+    
+    setNewUserName(''); // Réinitialiser l'input après soumission
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="newUserName"></label>
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <div className={styles.inputGroup}>
+        <label htmlFor="newUserName">New User Name</label>
         <input
           type="text"
           id="newUserName"
           value={newUserName}
           onChange={(e) => setNewUserName(e.target.value)}
           required
+          className={styles.input}
         />
       </div>
-      {error && <div className={styles.error}>{error}</div>}
-      <button type="submit" className={styles.editButton}>Edit Name</button>
+      {error && <div className={styles.error} role="alert">{error}</div>}
+      <button type="submit" className={styles.editButton} disabled={status === 'loading'}>
+        {status === 'loading' ? 'Updating...' : 'Edit name'}
+      </button>
     </form>
   );
 };

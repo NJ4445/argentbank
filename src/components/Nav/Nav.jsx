@@ -1,51 +1,55 @@
-// Nav.jsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectUserEmail, selectUserName, logout } from '../../redux/Features/authSlice';
-import styles from './Nav.module.css';
-import logo from '../../assets/img/argentBankLogo.webp';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle, faSignOut } from '@fortawesome/free-solid-svg-icons';
+import { logout as logoutAction, selectUserName, selectToken } from '../../redux/Features/authSlice';
+import styles from './Nav.module.css';
+import logo from '../../assets/img/argentBankLogo.webp';
 
 const Nav = () => {
-  const userEmail = useSelector(selectUserEmail);
-  const userName = useSelector(selectUserName);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
+  const userName = useSelector(selectUserName); 
+  console.log(userName);
+  const token = useSelector(selectToken);
 
-  const handleLogout = () => {
-    dispatch(logout());
+  useEffect(() => {
+    console.log('UserName from Nav:', userName);
+    console.log('Token from Nav:', token);
+  }, [userName, token]); // Cela s'exécute chaque fois que userName change
+
+  const handleSignOut = () => {
+    dispatch(logoutAction());
     navigate('/');
   };
 
   return (
-    <nav className={styles.mainNav}>
-      <a href="/" className={styles.mainNavLogo} onClick={(e) => {
-        e.preventDefault();
-        if (userEmail) handleLogout();
-        else navigate('/');
-      }}>
+    <nav className={styles.mainNav} aria-label="Main navigation">
+      <Link to="/" className={styles.mainNavLogo}>
         <img className={styles.mainNavLogoImage} src={logo} alt="Argent Bank Logo" />
         <h1 className="sr-only">Argent Bank</h1>
-      </a>
-      {userEmail ? (
-        <div>
-          <Link className={styles.mainNavItem} to="/user">
+      </Link>
+      <div>
+        {token ? (
+          <>
+            <Link className={styles.mainNavItem} to="/user">
+              <FontAwesomeIcon icon={faUserCircle} className={styles.mainNavItemIcon} />
+              {userName ? userName : 'Chargement...'}
+            </Link>
+            <button type="button" className={styles.mainNavItem} onClick={handleSignOut}>
+              <FontAwesomeIcon icon={faSignOut} className={styles.mainNavItemIcon} />
+              Sign Out
+            </button>
+          </>
+        ) : (
+          <Link className={styles.mainNavItem} to="/sign-in">
             <FontAwesomeIcon icon={faUserCircle} className={styles.mainNavItemIcon} />
-            {userName || userEmail}
+            Sign In
           </Link>
-          <button type="button" className={styles.mainNavItem} onClick={handleLogout}>
-            <FontAwesomeIcon icon={faSignOut} className={styles.mainNavItemIcon} />
-            Sign Out
-          </button>
-        </div>
-      ) : (
-        <Link className={styles.mainNavItem} to="/sign-in">
-          <FontAwesomeIcon icon={faUserCircle} className={styles.mainNavItemIcon} />
-          Sign In
-        </Link>
-      )}
+        )}
+      </div>
     </nav>
   );
 };
