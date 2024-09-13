@@ -18,30 +18,25 @@ const UpdateUserNameForm = ({ setIsEditing }) => {
   const status = useSelector(selectAuthStatus);
   const error = useSelector(selectAuthError);
 
-  // Utilisez les sélecteurs pour obtenir les valeurs actuelles
   const currentUserName = useSelector(selectUserName);
   const currentFirstName = useSelector(selectUserFirstName);
   const currentLastName = useSelector(selectUserLastName);
 
-  // État local pour le nouveau nom d'utilisateur
   const [newUserName, setNewUserName] = useState(currentUserName);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!token) return;
 
-    // Dispatchez l'action pour mettre à jour le nom d'utilisateur
     const result = await dispatch(updateUserName({ token, userName: newUserName }));
 
     if (updateUserName.fulfilled.match(result)) {
-      // Dispatchez une action pour récupérer le profil utilisateur mis à jour
       dispatch(fetchUserProfile(token));
       setIsEditing(false);
     } else {
       console.error('Failed to update user name:', result.payload);
     }
 
-    // Réinitialisez le champ de saisie après la soumission
     setNewUserName('');
   };
 
@@ -56,6 +51,7 @@ const UpdateUserNameForm = ({ setIsEditing }) => {
           onChange={(e) => setNewUserName(e.target.value)}
           required
           className={styles.input}
+          autoComplete="username" 
         />
       </div>
       <div className={styles.inputGroup}>

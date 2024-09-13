@@ -11,7 +11,7 @@ export const login = createAsyncThunk(
       const response = await api.post('/user/login', { email, password });
       const { token } = response.data.body;
 
-      // Récupérer le profil utilisateur
+      // Récupération profil utilisateur
       const userResponse = await api.post('/user/profile', {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -72,7 +72,8 @@ const authSlice = createSlice({
     logout: (state) => {
       state.token = null;
       state.user = { email: '', userName: '', firstName: '', lastName: '' };
-      localStorage.clear(); // Clear all localStorage items
+      localStorage.clear(); // Efface tous les éléments du localStorage
+
     },
   },
   extraReducers: (builder) => {
@@ -81,7 +82,7 @@ const authSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(login.fulfilled, (state, action) => {
-        console.log('Login fulfilled:', action.payload);
+        
         const { token, email, userName, firstName, lastName } = action.payload;
         state.token = token;
         state.user = { email, userName, firstName, lastName };
@@ -102,7 +103,7 @@ const authSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(updateUserName.fulfilled, (state, action) => {
-        console.log('updateUserName.fulfilled payload:', action.payload);
+      
         state.user.userName = action.payload.userName;
         state.status = 'succeeded';
         localStorage.setItem('userName', action.payload.userName);
@@ -116,7 +117,7 @@ const authSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(fetchUserProfile.fulfilled, (state, action) => {
-        console.log('Fetch User Profile fulfilled:', action.payload);
+       
         const { email, userName, firstName, lastName } = action.payload;
         state.user = { email, userName, firstName, lastName };
         state.status = 'succeeded';

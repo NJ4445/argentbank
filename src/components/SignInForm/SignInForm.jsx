@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { login } from '../../redux/Features/authSlice'; // Assurez-vous que ce chemin est correct
+import { login } from '../../redux/Features/authSlice'; 
 import styles from './SignInForm.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
@@ -43,6 +43,7 @@ const SignInForm = () => {
             required
             aria-required="true"
             aria-label="Email address"
+            autoComplete="email" 
           />
         </div>
         <div className={styles.inputWrapper}>
@@ -55,6 +56,7 @@ const SignInForm = () => {
             required
             aria-required="true"
             aria-label="Password"
+            autoComplete="current-password" 
           />
         </div>
         {error && <div className={styles.error} role="alert" aria-live="assertive">{error}</div>}

@@ -23,7 +23,7 @@
   color: black; 
 }
 
-/* Media query pour les écrans mobiles (max-width: 768px) */
+/* Media query */
 @media (max-width: 768px) {
   .error {
       padding: 20px 0px 0px 0px;

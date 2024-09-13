@@ -12,13 +12,10 @@ const Nav = () => {
   const dispatch = useDispatch();
   
   const userName = useSelector(selectUserName); 
-  console.log(userName);
   const token = useSelector(selectToken);
 
   useEffect(() => {
-    console.log('UserName from Nav:', userName);
-    console.log('Token from Nav:', token);
-  }, [userName, token]); // Cela s'exécute chaque fois que userName change
+  }, [userName, token]); 
 
   const handleSignOut = () => {
     dispatch(logoutAction());
