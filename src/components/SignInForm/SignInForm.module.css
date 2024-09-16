@@ -47,8 +47,16 @@
     font-size: 1.1rem;
     font-weight: bold;
     margin-top: 1rem;
-    border-color: #00bc77;
-    background-color: #00bc77;
-    color: #fff;
-  }
+    border: none; 
+    background-color: #00bc77; 
+    color: #fff; 
+    text-align: center;
+    cursor: pointer;
+    text-decoration: underline; 
+}
+
+.signInButton:hover {
+    background-color: #00a563; 
+}
+
   

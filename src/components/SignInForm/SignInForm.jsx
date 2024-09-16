@@ -64,7 +64,12 @@ const SignInForm = () => {
           <input type="checkbox" id="remember-me" />
           <label htmlFor="remember-me">Remember me</label>
         </div>
-        <button type="submit" className={styles.signInButton}>Sign In</button>
+        <button 
+          className={styles.signInButton} 
+          type="submit"
+        >
+          Sign In
+        </button>
       </form>
     </main>
   );
