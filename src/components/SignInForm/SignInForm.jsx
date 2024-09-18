@@ -21,10 +21,12 @@ const SignInForm = () => {
       if (login.fulfilled.match(action)) {
         navigate('/user');
       } else {
-        setError('Login failed: ' + action.payload);
+        // Affichage d'un message clair pour l'utilisateur
+        setError('Échec de la connexion : Email ou mot de passe incorrect.');
       }
     } catch (error) {
-      setError('Failed to login: ' + error.message);
+      // Message d'erreur général
+      setError('Une erreur est survenue lors de la connexion. Veuillez réessayer.');
     }
   };
 
@@ -38,12 +40,13 @@ const SignInForm = () => {
           <input
             type="email"
             id="email"
+            name="email"  
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
             aria-required="true"
             aria-label="Email address"
-            autoComplete="email" 
+            autoComplete="email"  
           />
         </div>
         <div className={styles.inputWrapper}>
@@ -51,12 +54,13 @@ const SignInForm = () => {
           <input
             type="password"
             id="password"
+            name="password"  
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
             aria-required="true"
             aria-label="Password"
-            autoComplete="current-password" 
+            autoComplete="current-password"  
           />
         </div>
         {error && <div className={styles.error} role="alert" aria-live="assertive">{error}</div>}

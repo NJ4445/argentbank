@@ -1,5 +1,3 @@
-// src/redux/Features/authSlice.js
-
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../api/axios';
 
@@ -11,7 +9,7 @@ export const login = createAsyncThunk(
       const response = await api.post('/user/login', { email, password });
       const { token } = response.data.body;
 
-      // Récupération profil utilisateur
+      // Récupération du profil utilisateur
       const userResponse = await api.post('/user/profile', {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -20,6 +18,10 @@ export const login = createAsyncThunk(
 
       return { token, email: userEmail, userName, firstName, lastName };
     } catch (error) {
+      // Gestion d'une erreur de connexion incorrecte
+      if (error.response && error.response.status === 401) {
+        return rejectWithValue('Email ou mot de passe incorrect');
+      }
       return rejectWithValue(error.response ? error.response.data : error.message);
     }
   }
@@ -73,7 +75,6 @@ const authSlice = createSlice({
       state.token = null;
       state.user = { email: '', userName: '', firstName: '', lastName: '' };
       localStorage.clear(); // Efface tous les éléments du localStorage
-
     },
   },
   extraReducers: (builder) => {
@@ -82,7 +83,6 @@ const authSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(login.fulfilled, (state, action) => {
-        
         const { token, email, userName, firstName, lastName } = action.payload;
         state.token = token;
         state.user = { email, userName, firstName, lastName };
@@ -96,28 +96,25 @@ const authSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.payload || 'Login failed';
+        // Affichage de l'erreur renvoyée ou d'un message par défaut
+        state.error = action.payload || 'Échec de la connexion';
       })
-
       .addCase(updateUserName.pending, (state) => {
         state.status = 'loading';
       })
       .addCase(updateUserName.fulfilled, (state, action) => {
-      
         state.user.userName = action.payload.userName;
         state.status = 'succeeded';
         localStorage.setItem('userName', action.payload.userName);
       })
       .addCase(updateUserName.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.payload || 'Failed to update user name';
+        state.error = action.payload || 'Échec de la mise à jour du nom d\'utilisateur';
       })
-
       .addCase(fetchUserProfile.pending, (state) => {
         state.status = 'loading';
       })
       .addCase(fetchUserProfile.fulfilled, (state, action) => {
-       
         const { email, userName, firstName, lastName } = action.payload;
         state.user = { email, userName, firstName, lastName };
         state.status = 'succeeded';
@@ -128,7 +125,7 @@ const authSlice = createSlice({
       })
       .addCase(fetchUserProfile.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.payload || 'Failed to fetch user profile';
+        state.error = action.payload || 'Échec de la récupération du profil utilisateur';
       });
   },
 });
