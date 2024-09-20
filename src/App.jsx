@@ -8,19 +8,23 @@ import ErrorPage from './pages/Error/Error';
 import Nav from './components/Nav/Nav'; 
 import Footer from './components/Footer/Footer';
 
+const Layout = ({ children }) => (
+  <>
+    <Nav />
+    {children}
+    <Footer />
+  </>
+);
+
 const App = () => {
   return (
     <Router>
-      <div>
-        <Nav />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/user" element={<User />} />
-          <Route path="*" element={<ErrorPage />} />
-        </Routes>
-        <Footer />
-      </div>
+      <Routes>
+        <Route path="/" element={<Layout><Home /></Layout>} />
+        <Route path="/sign-in" element={<Layout><SignIn /></Layout>} />
+        <Route path="/user" element={<Layout><User /></Layout>} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
     </Router>
   );
 };

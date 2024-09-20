@@ -74,7 +74,7 @@ const authSlice = createSlice({
     logout: (state) => {
       state.token = null;
       state.user = { email: '', userName: '', firstName: '', lastName: '' };
-      localStorage.clear(); // Efface tous les éléments du localStorage
+      localStorage.clear(); 
     },
   },
   extraReducers: (builder) => {
@@ -96,7 +96,6 @@ const authSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.status = 'failed';
-        // Affichage de l'erreur renvoyée ou d'un message par défaut
         state.error = action.payload || 'Échec de la connexion';
       })
       .addCase(updateUserName.pending, (state) => {

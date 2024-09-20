@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // Ajout de useState et useEffect
+import React, { useState, useEffect } from 'react'; 
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Account from '../../components/Account/Account';
@@ -18,7 +18,7 @@ const User = () => {
     }
   }, [token, navigate]);
 
-  const [isEditing, setIsEditing] = useState(false); // Utilisation de useState
+  const [isEditing, setIsEditing] = useState(false);
 
   const accounts = [
     { id: '1', title: "Argent Bank Checking (x8349)", amount: "$2,082.79", description: "Available Balance" },
