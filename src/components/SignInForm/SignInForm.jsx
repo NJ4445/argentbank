@@ -13,21 +13,20 @@ const SignInForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSignIn = async (event) => {
+  const handleSignIn = (event) => {
     event.preventDefault();
     setError(null);
-    try {
-      const action = await dispatch(login({ email, password }));
-      if (login.fulfilled.match(action)) {
-        navigate('/user');
-      } else {
-        // Affichage d'un message clair pour l'utilisateur
-        setError('Échec de la connexion : Email ou mot de passe incorrect.');
-      }
-    } catch (error) {
-      // Message d'erreur général
-      setError('Une erreur est survenue lors de la connexion. Veuillez réessayer.');
-    }
+    dispatch(login({ email, password }))
+      .then((action) => {
+        if (login.fulfilled.match(action)) {
+          navigate('/user');
+        } else {
+          setError('Échec de la connexion : Email ou mot de passe incorrect.');
+        }
+      })
+      .catch(() => {
+        setError('Une erreur est survenue lors de la connexion. Veuillez réessayer.');
+      });
   };
 
   return (
