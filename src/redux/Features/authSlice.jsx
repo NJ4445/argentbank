@@ -7,9 +7,9 @@ export const login = createAsyncThunk(
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const response = await api.post('/user/login', { email, password });
-      const { token } = response.data.body;
+      const { token } = response.data.body; // Récupère le token
 
-      // Récupération du profil utilisateur
+      // Appel pour récupérer le profil de l'utilisateur
       const userResponse = await api.post('/user/profile', {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -88,7 +88,8 @@ const authSlice = createSlice({
         state.user = { email, userName, firstName, lastName };
         state.status = 'succeeded';
         state.error = null;
-        localStorage.setItem('authToken', token);
+        localStorage.setItem('authToken', token);  // Stocke le token
+         // Stocke les informations utilisateur
         localStorage.setItem('userEmail', email);
         localStorage.setItem('userName', userName);
         localStorage.setItem('firstName', firstName);

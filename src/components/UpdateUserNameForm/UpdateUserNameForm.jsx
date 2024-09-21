@@ -12,32 +12,33 @@ import {
 } from '../../redux/Features/authSlice';
 import styles from './UpdateUserNameForm.module.css';
 
+// Formulaire pour mettre à jour le nom d'utilisateur
 const UpdateUserNameForm = ({ setIsEditing }) => {
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
   const status = useSelector(selectAuthStatus);
   const error = useSelector(selectAuthError);
-
   const currentUserName = useSelector(selectUserName);
   const currentFirstName = useSelector(selectUserFirstName);
   const currentLastName = useSelector(selectUserLastName);
-
+  
   const [newUserName, setNewUserName] = useState(currentUserName);
 
+  // Fonction pour gérer la soumission du formulaire  
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!token) return;
 
-    const result = await dispatch(updateUserName({ token, userName: newUserName }));
-
-    if (updateUserName.fulfilled.match(result)) {
-      dispatch(fetchUserProfile(token));
-      setIsEditing(false);
-    } else {
-      console.error('Failed to update user name:', result.payload);
+    try {
+      await dispatch(updateUserName({ token, userName: newUserName })).unwrap();
+      
+      dispatch(fetchUserProfile(token)); // Récupère le profil utilisateur mis à jour
+      setIsEditing(false); // Quitte le mode édition
+    } catch (error) {
+      console.error('Failed to update user name:', error); // Affiche une erreur en cas d'échec
     }
 
-    setNewUserName('');
+    setNewUserName(''); // Réinitialise le champ de saisie
   };
 
   return (

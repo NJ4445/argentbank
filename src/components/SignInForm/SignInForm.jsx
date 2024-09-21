@@ -14,12 +14,12 @@ const SignInForm = () => {
   const navigate = useNavigate();
 
   const handleSignIn = (event) => {
-    event.preventDefault();
+    event.preventDefault(); // Empêche le rechargement de la page
     setError(null);
-    dispatch(login({ email, password }))
+    dispatch(login({ email, password })) // Envoie les identifiants à Redux
       .then((action) => {
-        if (login.fulfilled.match(action)) {
-          navigate('/user');
+        if (login.fulfilled.match(action)) {  // Vérifie si la connexion a réussi
+          navigate('/user'); // Redirige vers la page utilisateur
         } else {
           setError('Échec de la connexion : Email ou mot de passe incorrect.');
         }
