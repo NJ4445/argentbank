@@ -1,24 +1,20 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import api from '../../api/axios';
+import { loginService, fetchUserProfileService, updateUserNameService } from '../../Service/api';
 
 // Thunks
 export const login = createAsyncThunk(
   'auth/login',
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await api.post('/user/login', { email, password });
-      const { token } = response.data.body; // Récupère le token
+      const response = await loginService(email, password);
+      const { token } = response.data.body;
 
-      // Appel pour récupérer le profil de l'utilisateur
-      const userResponse = await api.post('/user/profile', {}, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-
+      // Récupère le profil utilisateur après la connexion
+      const userResponse = await fetchUserProfileService(token);
       const { email: userEmail, userName, firstName, lastName } = userResponse.data.body;
 
       return { token, email: userEmail, userName, firstName, lastName };
     } catch (error) {
-      // Gestion d'une erreur de connexion incorrecte
       if (error.response && error.response.status === 401) {
         return rejectWithValue('Email ou mot de passe incorrect');
       }
@@ -31,9 +27,7 @@ export const updateUserName = createAsyncThunk(
   'auth/updateUserName',
   async ({ token, userName }, { rejectWithValue }) => {
     try {
-      const response = await api.put('/user/profile', { userName }, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const response = await updateUserNameService(token, userName);
       return response.data.body;
     } catch (error) {
       return rejectWithValue(error.response ? error.response.data : error.message);
@@ -45,9 +39,7 @@ export const fetchUserProfile = createAsyncThunk(
   'auth/fetchUserProfile',
   async (token, { rejectWithValue }) => {
     try {
-      const response = await api.post('/user/profile', {}, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const response = await fetchUserProfileService(token);
       const { email, userName, firstName, lastName } = response.data.body;
       return { email, userName, firstName, lastName };
     } catch (error) {
@@ -56,25 +48,26 @@ export const fetchUserProfile = createAsyncThunk(
   }
 );
 
-// Slice
+const initialState = {
+  token: localStorage.getItem('authToken') || null,
+  user: {
+    email: localStorage.getItem('userEmail') || '',
+    userName: localStorage.getItem('userName') || '',
+    firstName: localStorage.getItem('firstName') || '',
+    lastName: localStorage.getItem('lastName') || '',
+  },
+  status: 'idle',
+  error: null,
+};
+
 const authSlice = createSlice({
   name: 'auth',
-  initialState: {
-    token: localStorage.getItem('authToken') || null,
-    user: {
-      email: localStorage.getItem('userEmail') || '',
-      userName: localStorage.getItem('userName') || '',
-      firstName: localStorage.getItem('firstName') || '',
-      lastName: localStorage.getItem('lastName') || '',
-    },
-    status: 'idle',
-    error: null,
-  },
+  initialState,
   reducers: {
     logout: (state) => {
       state.token = null;
       state.user = { email: '', userName: '', firstName: '', lastName: '' };
-      localStorage.clear(); 
+      localStorage.clear();
     },
   },
   extraReducers: (builder) => {
@@ -88,8 +81,7 @@ const authSlice = createSlice({
         state.user = { email, userName, firstName, lastName };
         state.status = 'succeeded';
         state.error = null;
-        localStorage.setItem('authToken', token);  // Stocke le token
-         // Stocke les informations utilisateur
+        localStorage.setItem('authToken', token);
         localStorage.setItem('userEmail', email);
         localStorage.setItem('userName', userName);
         localStorage.setItem('firstName', firstName);
@@ -130,8 +122,8 @@ const authSlice = createSlice({
   },
 });
 
-// Exports
 export const { logout } = authSlice.actions;
+
 export const selectUserName = (state) => state.auth.user.userName;
 export const selectUserEmail = (state) => state.auth.user.email;
 export const selectUserFirstName = (state) => state.auth.user.firstName;
@@ -139,4 +131,5 @@ export const selectUserLastName = (state) => state.auth.user.lastName;
 export const selectToken = (state) => state.auth.token;
 export const selectAuthStatus = (state) => state.auth.status;
 export const selectAuthError = (state) => state.auth.error;
+
 export default authSlice.reducer;

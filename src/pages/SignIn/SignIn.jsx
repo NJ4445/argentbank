@@ -1,6 +1,6 @@
 // SignIn.jsx
 import React from 'react'
-import SignInForm from '../../components/SignInForm/SignInForm'
+import SignInForm from '../../components/LoginForm/LoginForm'
 import styles from '../SignIn/SignIn.module.css'
 
 function SignIn() {
