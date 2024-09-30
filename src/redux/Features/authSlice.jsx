@@ -88,7 +88,7 @@ const authSlice = createSlice({
         localStorage.setItem('lastName', lastName);
       })
       .addCase(login.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = 'failed'; 
         state.error = action.payload || 'Échec de la connexion';
       })
       .addCase(updateUserName.pending, (state) => {
